@@ -1,0 +1,7 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">GetD Smart</string>
+    <string name="tab_home">主页</string>
+    <string name="tab_ai">Getd Ai</string>
+    <string name="tab_health">健康</string>
+    <string name="tab_my">我的</string>
+</resources>

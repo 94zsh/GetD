@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/bg_tab_home_selector"
+        android:title="@string/tab_home"/>
+
+    <item
+        android:id="@+id/item_ai"
+        android:icon="@drawable/bg_tab_ai_selector"
+        android:title="@string/tab_ai"/>
+
+    <item
+        android:id="@+id/item_health"
+        android:icon="@drawable/bg_tab_health_selector"
+        android:title="@string/tab_health"/>
+    <item
+        android:id="@+id/item_me"
+        android:icon="@drawable/bg_tab_my_selector"
+        android:title="@string/tab_my"/>
+</menu>

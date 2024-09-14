@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="tab_select">#0066FF</color>
+    <color name="tab_unselect">#BEC0C5</color>
+
+    <color name="line">#E0E0E0</color>
+    <color name="pop_line">#979797</color>
+    <color name="bg_blue">#0066FF</color>
+    <color name="battery_left">#3FCC3E</color>
+    <color name="battery_right">#F05B5B</color>
+    <color name="text333">#333333</color>
+    <color name="text999">#999999</color>
+    <color name="text2d2">#2D2E32</color>
+    <color name="bg_scan_item">#EFF2F6</color>
+    <color name="state_disconnect">#D2D2D2</color>
+    <color name="stroke">#979797</color>
+    <color name="colorAccent">#2ed184</color>
+    <color name="rsbColorThumbDefault">#FFFFFF</color>
+    <color name="rsbColorThumbBorder">#FFD7D7D7</color>
+    <color name="blue">#0066FF</color>
+    <color name="gray">#E0E0E0</color>
+    <color name="bg_main">#EFF2F6</color>
+</resources>

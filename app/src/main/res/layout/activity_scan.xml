@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:background="@color/transparent">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_title_no_menu"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.future.getd.ui.view.WaveView
+            android:id="@+id/waveView"
+            android:layout_marginTop="@dimen/dp_57"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_200" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_57"
+            android:src="@drawable/bg_scan"
+            android:visibility="gone"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_scan_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_50"
+        android:text="@string/scanning_tip"
+        android:textColor="@color/text333"
+        android:textSize="@dimen/sp_16"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_scan"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/dp_50"
+        android:padding="@dimen/dp_15"
+        android:background="@color/transparent"/>
+
+    <LinearLayout
+        android:id="@+id/ll_re_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
+        android:visibility="invisible"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scanning_failed_tip2"
+            android:textColor="@color/text333"
+            android:textSize="@dimen/sp_16" />
+        <TextView
+            android:id="@+id/tv_re_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:text="@string/re_scan"
+            android:textColor="@color/bg_blue"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">GetD</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_ai">AI</string>
+    <string name="tab_health">Health</string>
+    <string name="tab_my">My</string>
+    <string name="state_connected">已连接</string>
+    <string name="state_disconnected">未连接</string>
+    <string name="state_connecting">连接中</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <!--首页-->
+    <string name="device_empty">无可用设备</string>
+    <string name="device_empty_tip">当前无可配对蓝牙 请点击下方按钮连接添加</string>
+    <string name="device_add">添加新设备</string>
+    <string name="scan_add">扫描添加</string>
+    <string name="scanning_tip">搜索设备中 请将手机靠近设备</string>
+    <string name="scanning_failed_tip">搜索失败</string>
+    <string name="scanning_failed_tip2">未找到目标设备?</string>
+    <string name="re_scan">重新扫描</string>
+    <string name="connect">连接</string>
+    <string name="connnecting">设备连接中...</string>
+    <string name="connect_failed">连接失败</string>
+    <string name="connect_failed_tip">连接失败,请重新连接</string>
+    <string name="reconnect">重新连接</string>
+    <string name="permission">开启权限</string>
+    <string name="setting">设置</string>
+    <string name="permission_tip">蓝牙扫描需要获取位置和蓝牙权限</string>
+
+    <string name="balance_setting">均衡调节</string>
+    <string name="eq_custom">自定义</string>
+    <string name="eq_pop">流行</string>
+    <string name="eq_dance">舞曲</string>
+    <string name="eq_blue">蓝调</string>
+    <string name="eq_jazz">爵士</string>
+    <string name="eq_village">乡村</string>
+    <string name="eq_roll">摇滚</string>
+    <string name="eq_eletronic">电子乐</string>
+    <string name="eq_class">古典</string>
+    <string name="custom_sound_effect">均衡器自定义音效</string>
+
+    <string name="find_device">查找眼镜</string>
+    <string name="play">播放语音</string>
+    <string name="gesture_setting">手势设置</string>
+    <string name="modify_name">修改设备名称</string>
+    <string name="edit_name">编辑名称</string>
+    <string name="edit_name_tip">注:该操作将会重启设备(若未能正确显示设备名称,请重新配对连接)</string>
+    <string name="tip_empty_device_name">名字不能设置为空</string>
+    <string name="tip_same_device_name">设备名称未改变</string>
+    <string name="clear_pair">清除配对记录</string>
+    <string name="clear_pair_tip">确定清除所有历史配对记录?</string>
+    <!--AI-->
+    <string name="ai_chat">AI对话</string>
+    <string name="ai_chat_describe">Chatgpt和你对话</string>
+    <string name="ai_translate">AI翻译</string>
+    <string name="ai_translate_describe">多语言智能翻译</string>
+    <string name="ai_voice">语音转文字</string>
+    <string name="ai_voice_describe">语音实时转文字</string>
+    <!--健康-->
+    <string name="health">健康</string>
+    <string name="steps">步数</string>
+    <string name="step_unit">步</string>
+    <string name="calories">卡路里</string>
+    <string name="distance">距离</string>
+    <string name="km">/km</string>
+    <string name="heart_rate">心率</string>
+    <string name="times">/次</string>
+    <string name="meditation_audio">冥想音频</string>
+    <string name="rain">下雨天</string>
+    <!--我的页面-->
+    <string name="login_now">立即登录</string>
+    <string name="app_version">软件版本</string>
+    <string name="language_set">语言设置</string>
+    <string name="feedback">用户反馈</string>
+    <string name="privacy">隐私政策</string>
+    <string name="user_agreement">用户协议</string>
+
+</resources>
