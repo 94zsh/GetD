@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import com.alibaba.fastjson.JSON;
 import com.future.getd.log.LogUtils;
 import com.future.getd.ui.bean.DeviceSettings;
+import com.future.getd.ui.bean.EqData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,6 +156,22 @@ public class SharePreferencesUtil {
         }
     }
 
+    public void updateSettingsByBleMac(Context context,String mac,DeviceSettings settings){
+        List<DeviceSettings> list = SharePreferencesUtil.getSharedPreferences(context).getDevicess();
+        int index = -1;
+        for (int i = 0; i < list.size(); i++) {
+            DeviceSettings deviceSettings = list.get(i);
+            if(mac.equalsIgnoreCase(deviceSettings.getBleMac())){
+                index = i;
+                break;
+            }
+        }
+        if(index != -1){
+            list.set(index,settings);
+            SharePreferencesUtil.getSharedPreferences(context).setDevices(list);
+        }
+    }
+
     public static DeviceSettings getSettingsByMac(Context context,String mac){
         List<DeviceSettings> list = SharePreferencesUtil.getSharedPreferences(context).getDevicess();
         for (int i = 0; i < list.size(); i++) {
@@ -164,5 +181,45 @@ public class SharePreferencesUtil {
             }
         }
         return null;
+    }
+
+
+    //存储EQ设置
+    private static final String EQ_SETTINGS = "EQ_SETTINGS_";
+    public Boolean saveEqData(String bleAddress,List<EqData> list) {
+        boolean result = false;
+        try {
+            if (sp != null && list != null) {
+                Editor editor = sp.edit();
+                String str = JSON.toJSONString(list);
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e("bind 存储设备数据 " + i + " "  + list.get(i).toString());//存储设备数据  [{"bleMac":"","classicMac":"1C:52:16:FA:FA:71","name":"NULL"}]
+                }
+//                HyLog.e("bind 存储设备数据  " + str);//存储设备数据  [{"bleMac":"","classicMac":"1C:52:16:FA:FA:71","name":"NULL"}]
+                editor.putString(EQ_SETTINGS + bleAddress, str);
+                result = editor.commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public List<EqData> getEqData(String address) {
+        List<EqData> list = new ArrayList<>();
+        try {
+            if (sp != null) {
+                String str = sp.getString(EQ_SETTINGS + address, null);
+                if (str != null) {
+//                list = JSON.parseObject(str, List<DeviceSettings>);
+                    list = JSON.parseArray(str,EqData.class);
+//                HyLog.e("bind 获取设备数据  " + str);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

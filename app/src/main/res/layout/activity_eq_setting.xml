@@ -45,17 +45,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp_10">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_1"
                         android:layout_width="match_parent"
@@ -63,11 +60,11 @@
                         app:rsb_gravity="center"
                         app:rsb_steps="17"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -77,13 +74,22 @@
                         app:rsb_max="17"
                         app:rsb_min="0"
                         />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:text="31"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
-                        android:layout_marginTop="3dp"/>
+                        android:textColor="@color/text999"
+                        android:textSize="11sp" />
+                    <TextView
+                        android:id="@+id/tv_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -91,10 +97,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_2"
                         android:layout_width="match_parent"
@@ -102,11 +104,11 @@
                         app:rsb_gravity="center"
                         app:rsb_steps="17"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -120,9 +122,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="62"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -130,10 +141,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_3"
                         android:layout_width="match_parent"
@@ -141,11 +148,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -159,9 +166,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="125"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -169,10 +184,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_4"
                         android:layout_width="match_parent"
@@ -180,11 +191,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -198,9 +209,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="250"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -208,10 +227,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_5"
                         android:layout_width="match_parent"
@@ -219,11 +234,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -237,9 +252,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="500"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -247,10 +270,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_6"
                         android:layout_width="match_parent"
@@ -258,11 +277,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -276,9 +295,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1k"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -286,10 +313,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_7"
                         android:layout_width="match_parent"
@@ -297,11 +320,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -315,9 +338,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2k"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -325,10 +356,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_8"
                         android:layout_width="match_parent"
@@ -336,11 +363,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -354,9 +381,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4k"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -364,10 +399,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_9"
                         android:layout_width="match_parent"
@@ -375,11 +406,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
-
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -393,9 +424,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="8k"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -403,10 +442,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
                     <com.future.getd.ui.view.seekbar.VerticalRangeSeekBar
                         android:id="@+id/sb_10"
                         android:layout_width="match_parent"
@@ -414,10 +449,11 @@
                         app:rsb_steps="17"
                         app:rsb_gravity="center"
                         app:rsb_progress_color="@color/blue"
-                        app:rsb_progress_default_color="@color/gray"
+                        app:rsb_progress_default_color="@color/bg_main"
                         app:rsb_progress_radius="8dp"
-                        app:rsb_thumb_width="@dimen/dp_13"
-                        app:rsb_thumb_height="@dimen/dp_13"
+                        app:rsb_thumb_width="@dimen/dp_20"
+                        app:rsb_thumb_height="@dimen/dp_20"
+                        app:rsb_thumb_drawable="@drawable/thumb"
                         app:rsb_mode="single"
                         app:rsb_step_height="10dp"
                         app:rsb_step_width="10dp"
@@ -431,9 +467,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="16k"
-                        android:textSize="10sp"
-                        android:textColor="@color/blue"
+                        android:textSize="11sp"
+                        android:textColor="@color/text999"
                         android:layout_marginTop="3dp"/>
+                    <TextView
+                        android:id="@+id/tv_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="0"
+                        android:textColor="@color/text333"
+                        android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
             </LinearLayout>
 

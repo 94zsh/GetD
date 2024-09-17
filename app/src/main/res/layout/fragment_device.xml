@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_product_fun"
+                        style="@style/text_text333_sp16"
                         android:layout_marginStart="@dimen/dp_10"
                         android:text="@string/balance_setting"/>
                 </LinearLayout>
@@ -112,7 +112,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_product_fun"
+                        style="@style/text_text333_sp16"
                         android:layout_marginStart="@dimen/dp_10"
                         android:text="@string/find_device"/>
                 </LinearLayout>
@@ -141,7 +141,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_product_fun"
+                        style="@style/text_text333_sp16"
                         android:layout_marginStart="@dimen/dp_10"
                         android:text="@string/gesture_setting"/>
                 </LinearLayout>

@@ -2,8 +2,11 @@ package com.future.getd;
 
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -246,5 +249,30 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             binding.vp2Home.setCurrentItem(pos, false);
             return false;
         });
+    }
+
+    private boolean exit = false;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        LogUtils.e(TAG,"KEYCODE_BACK currentState =" + keyCode);
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+//                if (exit) {
+                    Intent intentLauncher = new Intent(Intent.ACTION_MAIN);
+                    intentLauncher.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(intentLauncher);
+//                } else {
+//                    exit = true;
+//            ToastUtil.shortShow(TabMainActivity.this, getResources().getString(R.string.main_back_tip));
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            exit = false;
+//                        }
+//                    }, 1500);
+//                }
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

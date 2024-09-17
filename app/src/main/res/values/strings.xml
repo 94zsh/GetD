@@ -38,6 +38,20 @@
     <string name="eq_eletronic">电子乐</string>
     <string name="eq_class">古典</string>
     <string name="custom_sound_effect">均衡器自定义音效</string>
+    <string name="gesture">快速操作</string>
+    <string name="single_click">单击</string>
+    <string name="double_click">双击</string>
+    <string name="left_ear">左耳机</string>
+    <string name="right_ear">右耳机</string>
+    <string name="fun_none">无作用</string>
+    <string name="fun_last">上一曲</string>
+    <string name="fun_next">下一曲</string>
+    <string name="fun_play_pause">播放/暂停</string>
+    <string name="fun_answer">接听电话</string>
+    <string name="fun_hand_up">挂断电话</string>
+    <string name="fun_callback">回拨电话</string>
+    <string name="fun_volume_up">音量+</string>
+    <string name="fun_volume_down">音量-</string>
 
     <string name="find_device">查找眼镜</string>
     <string name="play">播放语音</string>

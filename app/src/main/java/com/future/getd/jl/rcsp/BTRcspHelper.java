@@ -130,6 +130,8 @@ public class BTRcspHelper {
                                         if (status == BluetoothProfile.STATE_CONNECTED) {
                                             connectDeviceByMessage(controller, context, bleDevice, null);
                                         }
+                                    }else if (status != BluetoothProfile.STATE_DISCONNECTED) {
+                                        //通知连接界面连接失败
                                     }
                                 }
                             }

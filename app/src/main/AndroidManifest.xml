@@ -40,6 +40,9 @@
         android:theme="@style/Theme.GetD"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.GestureActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.EqSettingActivity"
             android:exported="false" />
         <activity

@@ -154,7 +154,11 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:18.0.0")
     implementation ("com.google.android.gms:play-services-maps:17.0.0")
     implementation ("com.google.maps.android:android-maps-utils:1.2.1")
-
 //    implementation ("com.github.Jay-Goo:RangeSeekBar:v3.0.0")
 //    implementation ("com.jaygoo:range-seek-bar:2.5.0")
+//    implementation ("com.github.li-xiaojun:XPopup:latest.release")
+//    implementation ("com.github.li-xiaojun:EasyAdapter:1.2.8")
+//    implementation ("io.github.li-xiaojun:xpopup:latest.release")
+    implementation ("io.github.li-xiaojun:xpopup:2.9.4")
+//    implementation ("com.github.li-xiaojun:XPopup:2.9.0")
 }

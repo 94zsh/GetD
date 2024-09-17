@@ -123,7 +123,7 @@ public class FragmentHome extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //test
-                startActivity(new Intent(requireContext(),EqSettingActivity.class));
+                startActivity(new Intent(requireContext(),GestureActivity.class));
             }
         });
 
