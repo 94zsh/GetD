@@ -100,6 +100,7 @@ dependencies {
     implementation(files("libs/jl_bluetooth_rcsp_V3.2.0_30202-release.aar"))
     implementation(files("libs/jldecryption_v0.1-release.aar"))
     implementation(files("libs/fastjson-1.1.38.jar"))
+    implementation(files("libs/Msc.jar"))
     // 添加所有jar文件依赖
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
@@ -134,7 +135,7 @@ dependencies {
     implementation(libs.rxandroid)
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation(libs.retrofit)
-//    implementation(libs.converter.gson)
+    implementation(libs.converter.gson)
     implementation("com.squareup.okio:okio:2.8.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation("com.google.code.gson:gson:2.8.9")
@@ -159,6 +160,6 @@ dependencies {
 //    implementation ("com.github.li-xiaojun:XPopup:latest.release")
 //    implementation ("com.github.li-xiaojun:EasyAdapter:1.2.8")
 //    implementation ("io.github.li-xiaojun:xpopup:latest.release")
-    implementation ("io.github.li-xiaojun:xpopup:2.9.4")
+//    implementation ("io.github.li-xiaojun:xpopup:2.9.4")
 //    implementation ("com.github.li-xiaojun:XPopup:2.9.0")
 }

@@ -18,6 +18,7 @@ import com.future.getd.log.LogUtils;
 import com.future.getd.ui.adapter.HealthAudioAdapter;
 import com.future.getd.ui.bean.AudioItem;
 import com.future.getd.ui.my.FragmentMy;
+import com.future.getd.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,9 @@ public class FragmentHealth extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHealthBinding.inflate(getLayoutInflater());
+        ViewGroup.LayoutParams params = binding.vBar.getLayoutParams();
+        params.height = ScreenUtil.getStatusHeight(requireContext());
+        binding.vBar.setLayoutParams(params);
         init();
         return binding.getRoot();
     }

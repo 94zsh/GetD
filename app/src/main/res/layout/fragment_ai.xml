@@ -6,12 +6,16 @@
     tools:context=".ui.ai.FragmentAI"
     android:orientation="vertical"
     android:padding="@dimen/dp_15">
-
+    <View
+        android:id="@+id/v_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"/>
     <include
         android:id="@+id/view_toolbar"
         layout="@layout/toolbar_home"/>
     
     <RelativeLayout
+        android:id="@+id/rl_chat"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_118"
         android:gravity="center_vertical"

@@ -1,4 +1,16 @@
 package com.future.getd.net;
+
+import com.future.getd.net.model.City;
+import com.future.getd.net.model.GptRequest;
+import com.future.getd.net.model.GptResponse;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+
 //
 //import com.watchfun.future3d.bean.ProjectInfo;
 //import com.watchfun.future3d.bean.adconfig.AdConfigData;
@@ -26,6 +38,10 @@ package com.future.getd.net;
 //
 ///* loaded from: classes3.dex */
 public interface ApiService {
+
+    @Headers({"Content-Type:application/json","Authorization:Bearer sk-proj-LPXdRwo6uvZhqzbYMTyFT3BlbkFJwbszLEjbDnqlwsXXlnhk"})
+    @GET("simpleWeather/query")
+    Call<String> getWeather(@Query("city") String city);
 //    @GET(ApiPath.INTERSTITIAL_CONFIG_PATH)
 //    Observable<BaseHttpResult<List<AdConfigData>>> getAdConfigData();
 //

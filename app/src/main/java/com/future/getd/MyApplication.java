@@ -10,9 +10,11 @@ import android.os.Environment;
 
 
 import com.amap.api.location.AMapLocationClient;
+import com.future.getd.database.AppDataBase;
 import com.future.getd.jl.ProductManager;
 import com.future.getd.log.LogUtils;
 import com.future.getd.utils.LocationUtils;
+import com.future.getd.utils.RetrofitUtil;
 import com.future.getd.utils.SdCardUtil;
 import com.future.getd.utils.SharePreferencesUtil;
 import com.jieli.bluetooth.bean.BluetoothOption;
@@ -69,6 +71,8 @@ public class MyApplication extends Application {
     private void initUtils() {
         LocationUtils.getInstance().init(MyApplication.this);
         ToastUtil.init(MyApplication.this);
+        RetrofitUtil.initHttpClient(MyApplication.this);
+        AppDataBase.getInstance(MyApplication.this);
     }
 
     private void initAMap() {

@@ -18,6 +18,7 @@ public class SdCardUtil {
     public static final int SAVE_PATH_LOG = 0;
     public static final int SAVE_PATH_PICTURE = 1;
     public static final int SAVE_PATH_OTA = 2;
+    public static final int SAVE_PATH_AUDIO = 3;
     public static String filePath;
     public static String getSdCardPath(int pathType) {
         String appName = "GetD";
@@ -31,6 +32,9 @@ public class SdCardUtil {
                 break;
             case SAVE_PATH_OTA:
                 path = "update";
+                break;
+            case SAVE_PATH_AUDIO:
+                path = "audio";
                 break;
         }
         String pathFinal;

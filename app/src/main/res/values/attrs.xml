@@ -136,6 +136,8 @@
             <enum name="horizontal" value="2"/>
         </attr>
     </declare-styleable>
-
+    <declare-styleable name="CircleView">
+        <attr name="background_color" format="color" />
+    </declare-styleable>
 
 </resources>

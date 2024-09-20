@@ -64,6 +64,7 @@ public class SharePreferencesUtil {
         boolean result = false;
         try {
             if (sp != null && list != null) {
+                LogUtils.e("setDevices size " + list.size());
                 Editor editor = sp.edit();
                 String str = JSON.toJSONString(list);
                 for (int i = 0; i < list.size(); i++) {
@@ -162,6 +163,22 @@ public class SharePreferencesUtil {
         for (int i = 0; i < list.size(); i++) {
             DeviceSettings deviceSettings = list.get(i);
             if(mac.equalsIgnoreCase(deviceSettings.getBleMac())){
+                index = i;
+                break;
+            }
+        }
+        if(index != -1){
+            list.set(index,settings);
+            SharePreferencesUtil.getSharedPreferences(context).setDevices(list);
+        }
+    }
+
+    public void updateSettingsByClassMac(Context context,String classMac,DeviceSettings settings){
+        List<DeviceSettings> list = SharePreferencesUtil.getSharedPreferences(context).getDevicess();
+        int index = -1;
+        for (int i = 0; i < list.size(); i++) {
+            DeviceSettings deviceSettings = list.get(i);
+            if(classMac.equalsIgnoreCase(deviceSettings.getClassicMac())){
                 index = i;
                 break;
             }

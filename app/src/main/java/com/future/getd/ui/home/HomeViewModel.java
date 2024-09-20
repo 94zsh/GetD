@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.future.getd.base.BtBasicVM;
 import com.future.getd.database.DataRepository;
 import com.future.getd.database.entity.BindDevice;
+import com.future.getd.log.LogUtils;
 import com.future.getd.ui.bean.DeviceSettings;
 import com.future.getd.utils.SharePreferencesUtil;
 
@@ -34,9 +35,10 @@ public class HomeViewModel extends BtBasicVM {
 
     public void getBindDevice(){
         List<DeviceSettings> deviceSettingsList = SharePreferencesUtil.getInstance().getDevicess();
-        if(!deviceSettingsList.isEmpty()){
+        LogUtils.i("home getBindDevice : " + deviceSettingsList);
+//        if(!deviceSettingsList.isEmpty()){
             isBindDevice.setValue(true);
             mBindDeviceList.setValue(deviceSettingsList);
-        }
+//        }
     }
 }

@@ -16,14 +16,19 @@
         android:paddingRight="20dp"
         android:orientation="horizontal"
         android:background="@color/white">
+        <ImageView
+            android:id="@+id/iv_type"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/ic_fun_none"/>
         <TextView
             android:id="@+id/tv_item"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
             android:text="random"
-            android:textSize="17sp"
-            android:textColor="@color/black"/>
+            style="@style/text_text333_sp16"/>
         <ImageView
             android:id="@+id/iv_state"
             android:layout_width="20dp"

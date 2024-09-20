@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
     <View
         android:id="@+id/v_bg_top"
         android:layout_width="match_parent"
@@ -13,8 +12,7 @@
         android:background="@drawable/bg_my"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fitsSystemWindows="true"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/ll_info"
         android:layout_width="match_parent"

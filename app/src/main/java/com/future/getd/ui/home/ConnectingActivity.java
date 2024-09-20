@@ -74,13 +74,26 @@ public class ConnectingActivity extends BaseActivity<ActivityConnectingBinding> 
                     //已连接
                     binding.rlConnecting.setVisibility(View.VISIBLE);
                     binding.llConnectFail.setVisibility(View.GONE);
-                    List<DeviceSettings> deviceSettingsList = new ArrayList<>();
-//                     deviceSettingsList = SharePreferencesUtil.getInstance().getDevicess();
+//                    List<DeviceSettings> deviceSettingsList = new ArrayList<>();
+                    List<DeviceSettings> deviceSettingsList = SharePreferencesUtil.getInstance().getDevicess();
+                    boolean isContain = false;
+                    int index = -1;
+                    for (int i = 0; i < deviceSettingsList.size(); i++) {
+                        DeviceSettings deviceSettings = deviceSettingsList.get(i);
+                        if(deviceSettings.getClassicMac().equals(device.getAddress())){
+                            isContain = true;
+                            index = i;
+                        }
+                    }
                     DeviceSettings deviceSettings = new DeviceSettings(BTRcspHelper.getTargetDevice().getName()
                             ,BTRcspHelper.getTargetDevice().getAddress(),BTRcspHelper.getTargetBleScanMessage().getEdrAddr());
                     deviceSettings.setPrimary(true);
                     deviceSettings.setBleScanMessage(BTRcspHelper.getTargetBleScanMessage());
-                    deviceSettingsList.add(deviceSettings);
+                    if(index != -1 && index < deviceSettingsList.size()){
+                        deviceSettingsList.set(index,deviceSettings);
+                    }else{
+                        deviceSettingsList.add(deviceSettings);
+                    }
                     SharePreferencesUtil.getInstance().setDevices(deviceSettingsList);
                     finish();
                 }

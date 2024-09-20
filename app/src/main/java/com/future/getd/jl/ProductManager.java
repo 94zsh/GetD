@@ -435,6 +435,7 @@ public class ProductManager {
         @Override
         public void onError(BaseError error) {
             super.onError(error);
+            // BTRcspEventCallback onError error : BaseError{code=5, subCode=20481, opCode=0, message='auth device failed.'}
             LogUtils.i("BTRcspEventCallback onError error : " + error);
         }
 

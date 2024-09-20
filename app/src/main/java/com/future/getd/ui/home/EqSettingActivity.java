@@ -92,7 +92,7 @@ public class EqSettingActivity extends BaseActivity<ActivityEqSettingBinding> im
 //            seekBar.setRange(-4,21);
         }
 
-        deviceSettings = SharePreferencesUtil.getInstance().getDevicesByMac(ProductManager.currentDevice.getBleMac());
+        deviceSettings = SharePreferencesUtil.getInstance().getDevicesByClassMac(ProductManager.currentDevice.getClassicMac());
         int eqMode = deviceSettings.getEqMode();
         LogUtils.e("current EQ info : " + deviceSettings.getEqInfo() + " , mode : " + deviceSettings.getEqMode());
         EqInfo eqCustom = new EqInfo(EqItem.DEV_MODE_CUSTOM,deviceSettings.getEqInfo().getValue(),new int[]{31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000});
@@ -361,7 +361,7 @@ public class EqSettingActivity extends BaseActivity<ActivityEqSettingBinding> im
     }
 
     private void saveToDb() {
-        SharePreferencesUtil.getInstance().updateSettingsByBleMac(this,deviceSettings.getBleMac(),deviceSettings);
+        SharePreferencesUtil.getInstance().updateSettingsByClassMac(this,deviceSettings.getClassicMac(),deviceSettings);
     }
 
     private void setToDevice(EqInfo eqData) {

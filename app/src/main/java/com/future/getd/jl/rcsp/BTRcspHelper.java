@@ -32,8 +32,8 @@ import java.util.List;
  * @since 2021/12/8
  */
 public class BTRcspHelper {
-    private static BluetoothDevice targetDevice;
-    private static BleScanMessage targetBleScanMessage;
+    private static BluetoothDevice targetDevice;//BLE地址设备
+    private static BleScanMessage targetBleScanMessage;//经典蓝牙广播
 
     private static BluetoothDevice bluetoothDevice;
 

@@ -1,14 +1,17 @@
 package com.future.getd;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
@@ -57,6 +60,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private final String TAG = MainActivity.class.getSimpleName();
     private MainViewModel mainViewModel;
+    public static boolean isNeedReloadDevices = false;
     private final Fragment[] fragments = new Fragment[]{
             FragmentHome.newInstance(),
             FragmentAI.newInstance(),
@@ -71,7 +75,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 //        SystemUtil.setImmersiveStateBar(getWindow(), true);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestPermission();
-//        StatusBarUtil.setStatusBarColor(R.color.bg_main,this);
+
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        window.setStatusBarColor(Color.TRANSPARENT);
     }
 
     private void requestPermission() {
@@ -126,6 +134,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.getMainBindDevice();
         mainViewModel.deviceConnectionMLD.observe(this, new Observer<BtBasicVM.DeviceConnectionData>() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onChanged(BtBasicVM.DeviceConnectionData deviceConnectionData) {
                 LogUtils.e("deviceConnectionMLD onChanged deviceConnectionData : " + deviceConnectionData.getStatus());
@@ -134,27 +143,52 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 if (status == StateCode.CONNECTION_OK || status == StateCode.CONNECTION_CONNECTED) {
                     LogUtils.e("deviceConnectionMLD onChanged deviceConnectionData : connected" );
                     DeviceSettings deviceSettings = SharePreferencesUtil.getInstance().getDevicesByClassMac(deviceConnectionData.getDevice().getAddress());
+//                    //未绑定设备 系统却配对了设备  自动绑定新设备 此时没有BLE地址需要获取
+//                    if(deviceSettings == null){
+//                        List<DeviceSettings> deviceSettingsList = SharePreferencesUtil.getInstance().getDevicess();
+//                        boolean isContain = false;
+//                        int index = -1;
+//                        for (int i = 0; i < deviceSettingsList.size(); i++) {
+//                            DeviceSettings settings = deviceSettingsList.get(i);
+//                            if(settings.getClassicMac().equals(device.getAddress())){
+//                                isContain = true;
+//                                index = i;
+//                            }
+//                        }
+//                        deviceSettings = new DeviceSettings(deviceConnectionData.getDevice().getName()
+//                                ,deviceConnectionData.getDevice().getAddress(),deviceConnectionData.getDevice().getAddress()/*BTRcspHelper.getTargetBleScanMessage().getEdrAddr()*/);
+//                        deviceSettings.setPrimary(true);
+//                        deviceSettings.setBleScanMessage(BTRcspHelper.getTargetBleScanMessage());
+//                        if(index != -1 && index < deviceSettingsList.size()){
+//                            deviceSettingsList.set(index,deviceSettings);
+//                        }else{
+//                            deviceSettingsList.add(deviceSettings);
+//                        }
+//                        SharePreferencesUtil.getInstance().setDevices(deviceSettingsList);
+//                    }
                     ProductManager.currentDevice = deviceSettings;
+                    DeviceSettings finalDeviceSettings = deviceSettings;
                     LocationUtils.getInstance().startOnceLocation(new LocationUtils.LocationResultListener() {
                         @Override
                         public void onResult(double lon, double lat,String address) {
                             LogUtils.e("startOnceLocation onResult lon : " + lon + " lat : " + lat +" , address : " + address);
-                            if(deviceSettings != null){
-                                deviceSettings.setLongitude((float) lon);
-                                deviceSettings.setLatitude((float) lat);
-                                deviceSettings.setAddress(address);
-                                deviceSettings.setLocationTimestamp(System.currentTimeMillis());
+                            if(finalDeviceSettings != null){
+                                finalDeviceSettings.setLongitude((float) lon);
+                                finalDeviceSettings.setLatitude((float) lat);
+                                finalDeviceSettings.setAddress(address);
+                                finalDeviceSettings.setLocationTimestamp(System.currentTimeMillis());
                                 ProductManager.currentDevice.setLongitude((float) lon);
                                 ProductManager.currentDevice.setLatitude((float) lat);
                                 ProductManager.currentDevice.setAddress(address);
                                 ProductManager.currentDevice.setLocationTimestamp(System.currentTimeMillis());
-                                SharePreferencesUtil.getInstance().updateSettings(MainActivity.this,deviceConnectionData.getDevice().getAddress(),deviceSettings);
+                                SharePreferencesUtil.getInstance().updateSettings(MainActivity.this,deviceConnectionData.getDevice().getAddress(), finalDeviceSettings);
                             }
                         }
                     });
                 }
                 else if (status == StateCode.CONNECTION_FAILED || status == StateCode.CONNECTION_DISCONNECT) {
                     LogUtils.e("deviceConnectionMLD onChanged deviceConnectionData : disconnect" );
+//                    rcspController.fastConnect();
                 }
             }
         });

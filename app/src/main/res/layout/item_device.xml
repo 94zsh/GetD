@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_80"
+    android:layout_marginTop="@dimen/dp_10"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_white_radius_15dp"
+    android:gravity="center_vertical">
+    
+    <ImageView
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginStart="@dimen/padding"
+        android:src="@drawable/ic_device"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_6"
+        style="@style/text_text333_sp16"/>
+
+    <com.future.getd.ui.view.CircleView
+        android:id="@+id/cv"
+        android:layout_width="@dimen/dp_6"
+        android:layout_height="@dimen/dp_6"
+        android:background="@color/bga8"/>
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/padding"
+        android:text="@string/state_disconnected"
+        android:textColor="@color/bga8"/>
+
+</LinearLayout>

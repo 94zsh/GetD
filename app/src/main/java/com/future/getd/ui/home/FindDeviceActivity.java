@@ -43,6 +43,7 @@ import java.util.Date;
 public class FindDeviceActivity extends AppCompatActivity {
     private ActivityFindDeviceBinding binding;
     private boolean isSearching = false;
+    private DeviceSettings deviceSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class FindDeviceActivity extends AppCompatActivity {
     }
 
     private void init() {
+//        deviceSettings =
         RCSPController controller = RCSPController.getInstance();
         controller.addBTRcspEventCallback(new BTRcspEventCallback() {
             @Override

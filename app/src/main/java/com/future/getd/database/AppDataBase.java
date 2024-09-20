@@ -9,11 +9,13 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.future.getd.database.dao.MessageDao;
 import com.future.getd.database.dao.UserDao;
 import com.future.getd.database.entity.UserEntity;
+import com.future.getd.net.model.Message;
 
 
-@Database(entities = {UserEntity.class},version = 1,exportSchema = false)
+@Database(entities = {UserEntity.class, Message.class},version = 1,exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
     private static AppDataBase INSTANCE;
 
@@ -29,7 +31,13 @@ public abstract class AppDataBase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public static AppDataBase getInstance() {
+        return INSTANCE;
+    }
+
     public abstract UserDao getUserDao();
+    public abstract MessageDao getChatDao();
 
     static final Migration MIGRATION_1_2 = new Migration(1,2) {
         @Override

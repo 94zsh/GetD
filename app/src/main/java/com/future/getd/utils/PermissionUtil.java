@@ -1,13 +1,22 @@
 package com.future.getd.utils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import com.future.getd.ui.ai.ChatActivity;
+import com.permissionx.guolindev.PermissionX;
+import com.permissionx.guolindev.callback.RequestCallback;
+
+import java.util.List;
 
 /**
  * 权限工具类
@@ -132,5 +141,24 @@ public class PermissionUtil {
             return isHasPermission(context, Manifest.permission.BLUETOOTH_SCAN);
         }
         return true;
+    }
+
+    public static boolean checkHasRecordPermission(Context context) {
+        if (null == context) return false;
+        return isHasPermission(context, Manifest.permission.RECORD_AUDIO);
+    }
+
+    public static void requestRecordPermission(Context context) {
+        PermissionX.init((FragmentActivity) context).permissions(Manifest.permission.RECORD_AUDIO)
+                .request(new RequestCallback() {
+                    @Override
+                    public void onResult(boolean allGranted, @NonNull List<String> grantedList, @NonNull List<String> deniedList) {
+                        if (allGranted) {
+
+                        } else {
+
+                        }
+                    }
+                });
     }
 }

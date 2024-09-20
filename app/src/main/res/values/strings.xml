@@ -26,6 +26,9 @@
     <string name="permission">开启权限</string>
     <string name="setting">设置</string>
     <string name="permission_tip">蓝牙扫描需要获取位置和蓝牙权限</string>
+    <string name="device_list">设备列表</string>
+    <string name="delete_device">删除设备</string>
+    <string name="delete_device_tip">是否确认删除该设备记录,已连接的设备将会断开连接</string>
 
     <string name="balance_setting">均衡调节</string>
     <string name="eq_custom">自定义</string>
@@ -44,7 +47,7 @@
     <string name="left_ear">左耳机</string>
     <string name="right_ear">右耳机</string>
     <string name="fun_none">无作用</string>
-    <string name="fun_last">上一曲</string>
+    <string name="fun_pre">上一曲</string>
     <string name="fun_next">下一曲</string>
     <string name="fun_play_pause">播放/暂停</string>
     <string name="fun_answer">接听电话</string>
@@ -70,6 +73,7 @@
     <string name="ai_translate_describe">多语言智能翻译</string>
     <string name="ai_voice">语音转文字</string>
     <string name="ai_voice_describe">语音实时转文字</string>
+    <string name="press_to_record">按住说话</string>
     <!--健康-->
     <string name="health">健康</string>
     <string name="steps">步数</string>

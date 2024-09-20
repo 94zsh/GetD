@@ -3,6 +3,7 @@ package com.future.getd.utils;
 import android.content.Context;
 
 import com.future.getd.net.AIBaiduApiService;
+import com.future.getd.net.AIChatGptApiService;
 import com.future.getd.net.Api;
 import com.future.getd.net.ApiService;
 import com.future.getd.net.gson.StringConverterFactory;
@@ -13,24 +14,27 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 //import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 //import retrofit2.converter.gson.GsonConverterFactory;
 
 /* loaded from: classes3.dex */
 public class RetrofitUtil {
     private static AIBaiduApiService mAiApiService;
+    private static AIChatGptApiService mAiChatGptApiService;
     private static ApiService mApiService;
     private static volatile Retrofit sAiRetrofit;
     private static volatile Retrofit sRetrofit;
+    private static volatile Retrofit sTestRetrofit;
 
-    public static AIBaiduApiService getAiApiService() {
+    public static AIChatGptApiService getAiApiService() {
         if (sAiRetrofit == null) {
             return null;
         }
-        if (mAiApiService == null) {
-            mAiApiService = (AIBaiduApiService) sAiRetrofit.create(AIBaiduApiService.class);
+        if (mAiChatGptApiService == null) {
+            mAiChatGptApiService = sAiRetrofit.create(AIChatGptApiService.class);
         }
-        return mAiApiService;
+        return mAiChatGptApiService;
     }
 
     public static ApiService getApiService() {
@@ -38,7 +42,7 @@ public class RetrofitUtil {
             return null;
         }
         if (mApiService == null) {
-            mApiService = (ApiService) sRetrofit.create(ApiService.class);
+            mApiService = sRetrofit.create(ApiService.class);
         }
         return mApiService;
     }
@@ -63,14 +67,27 @@ public class RetrofitUtil {
         if (sRetrofit == null) {
             synchronized (RetrofitUtil.class) {
                 if (sRetrofit == null) {
-//                    sRetrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(Api.BASE_API).addConverterFactory(StringConverterFactory.create()).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
+                    sRetrofit = new Retrofit.Builder()
+                            .client(okHttpClient)
+//                            .baseUrl(Api.BASE_API)
+                            .baseUrl(Api.AI_BASE_API_TEST)
+                            .addConverterFactory(StringConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+//                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .build();
                 }
             }
         }
         if (sAiRetrofit == null) {
             synchronized (RetrofitUtil.class) {
                 if (sAiRetrofit == null) {
-//                    sAiRetrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(Api.AI_BASE_API).addConverterFactory(StringConverterFactory.create()).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
+                    sAiRetrofit = new Retrofit.Builder()
+                            .client(okHttpClient)
+                            .baseUrl(Api.AI_BASE_API)
+                            .addConverterFactory(StringConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+//                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .build();
                 }
             }
         }

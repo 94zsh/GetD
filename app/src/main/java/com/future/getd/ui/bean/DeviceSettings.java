@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.jieli.bluetooth.bean.BleScanMessage;
 import com.jieli.bluetooth.bean.device.eq.EqInfo;
+import com.jieli.bluetooth.bean.response.ADVInfoResponse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class DeviceSettings implements Serializable {
     private long locationTimestamp;
     String sn = "";
     boolean isPrimary = false;//是否是主设备
+    List<ADVInfoResponse.KeySettings> keySettingsList = new ArrayList<>();
 
     private BleScanMessage bleScanMessage;
 
@@ -175,6 +177,14 @@ public class DeviceSettings implements Serializable {
         this.eqMode = eqMode;
     }
 
+    public List<ADVInfoResponse.KeySettings> getKeySettingsList() {
+        return keySettingsList;
+    }
+
+    public void setKeySettingsList(List<ADVInfoResponse.KeySettings> keySettingsList) {
+        this.keySettingsList = keySettingsList;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -193,6 +203,7 @@ public class DeviceSettings implements Serializable {
                 ", eqInfo=" + eqInfo +
                 ", eqMode=" + eqMode +
                 ", bleScanMessage=" + bleScanMessage +
+                ", keySettingsList=" + keySettingsList +
                 ", sn='" + sn + '\'' +
                 '}';
     }

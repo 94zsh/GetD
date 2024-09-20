@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 
+import com.future.getd.MainActivity;
 import com.future.getd.R;
 import com.future.getd.base.BaseFragment;
 import com.future.getd.base.BtBasicVM;
@@ -32,6 +33,7 @@ import com.future.getd.jl.rcsp.BTRcspHelper;
 import com.future.getd.log.LogUtils;
 import com.future.getd.ui.bean.DeviceSettings;
 import com.future.getd.ui.view.EditNamePop;
+import com.future.getd.utils.ScreenUtil;
 import com.future.getd.utils.SharePreferencesUtil;
 import com.future.getd.utils.StatusBarUtil;
 import com.jieli.bluetooth.bean.base.BaseError;
@@ -70,6 +72,16 @@ public class FragmentHome extends BaseFragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(MainActivity.isNeedReloadDevices){
+            LogUtils.i("HOME onResume NeedReloadDevices");
+            homeViewModel.getBindDevice();
+            MainActivity.isNeedReloadDevices = false;
+        }
+    }
+
     private void initData() {
         homeViewModel.getBindDevice();
         homeViewModel.deviceConnectionMLD.observe(getViewLifecycleOwner(), new Observer<BtBasicVM.DeviceConnectionData>() {
@@ -77,12 +89,18 @@ public class FragmentHome extends BaseFragment {
             public void onChanged(BtBasicVM.DeviceConnectionData deviceConnectionData) {
                 LogUtils.e("deviceConnectionMLD onChanged deviceConnectionData : " + deviceConnectionData.getStatus());
                 final BluetoothDevice device = deviceConnectionData.getDevice();
+                List<DeviceSettings> list = SharePreferencesUtil.getInstance().getDevicess();
+                boolean isBind = true;
+                if(list == null || list.isEmpty()){
+                    isBind = false;
+                }
                 final int status = deviceConnectionData.getStatus();
                 if (status == StateCode.CONNECTION_OK || status == StateCode.CONNECTION_CONNECTED) {
-                    changeUI(true,true);
+                    changeUI(isBind,true);
                 }
                 else if (status == StateCode.CONNECTION_FAILED || status == StateCode.CONNECTION_DISCONNECT) {
-                    changeUI(true,false);
+                    LogUtils.e("disconnect  getUsingDevice : " + RCSPController.getInstance().getUsingDevice());
+                    changeUI(isBind,false);
                 }
             }
         });
@@ -115,6 +133,10 @@ public class FragmentHome extends BaseFragment {
     }
 
     private void init() {
+        ViewGroup.LayoutParams params = binding.vBar.getLayoutParams();
+        params.height = ScreenUtil.getStatusHeight(requireContext());
+        binding.vBar.setLayoutParams(params);
+        
         binding.viewToolbar.ivSettings.setOnClickListener(view -> startActivity(new Intent(getActivity(),DeviceListActivity.class)));
         binding.layoutNone.btAdd.setOnClickListener(view -> {
             startActivity(new Intent(getActivity(),ScanActivity.class));
@@ -123,12 +145,33 @@ public class FragmentHome extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //test
-                startActivity(new Intent(requireContext(),GestureActivity.class));
+            }
+        });
+
+        binding.layoutDevice.llFunction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!RCSPController.getInstance().isDeviceConnected()){
+                    reConnect();
+                }
             }
         });
 
         binding.layoutDevice.llBalance.setOnClickListener(view -> {
             startActivity(new Intent(requireContext(),EqSettingActivity.class));
+        });
+
+        binding.layoutDevice.llFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireContext(), FindDeviceActivity.class));
+            }
+        });
+        binding.layoutDevice.llGesture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireContext(),GestureActivity.class));
+            }
         });
 
         //音量调节
@@ -169,20 +212,6 @@ public class FragmentHome extends BaseFragment {
 
             }
         });
-        binding.layoutDevice.llFunction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!RCSPController.getInstance().isDeviceConnected()){
-                    reConnect();
-                }
-            }
-        });
-        binding.layoutDevice.llFind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(requireContext(), FindDeviceActivity.class));
-            }
-        });
         //修改名称
         binding.layoutDevice.llEditName.setOnClickListener( v -> {
             EditNamePop editNamePop = new EditNamePop(requireContext());
@@ -194,9 +223,15 @@ public class FragmentHome extends BaseFragment {
                         RCSPController.getInstance().configDeviceName(RCSPController.getInstance().getUsingDevice(), name, new OnRcspActionCallback<Integer>() {
                             @Override
                             public void onSuccess(BluetoothDevice bluetoothDevice, Integer integer) {
+                                LogUtils.i("configDeviceName onSuccess : " + integer);
                                 ProductManager.currentDevice.setName(name);
                                 SharePreferencesUtil.getInstance().updateSettings(requireContext(),RCSPController.getInstance().getUsingDevice().getAddress(),ProductManager.currentDevice);
-                                RCSPController.getInstance().rebootDevice(RCSPController.getInstance().getUsingDevice(), null);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        RCSPController.getInstance().rebootDevice(RCSPController.getInstance().getUsingDevice(), null);
+                                    }
+                                },1500);
                             }
 
                             @Override
@@ -224,7 +259,20 @@ public class FragmentHome extends BaseFragment {
                         if (RCSPController.getInstance().isDeviceConnected()){
 //                            RCSPController.getInstance().disconnectDevice(/*BTRcspHelper.getCurrentDevice()*/RCSPController.getInstance().getUsingDevice());
                             JL_BluetoothManager.getInstance(requireContext()).unPair(RCSPController.getInstance().getUsingDevice());
-                            SharePreferencesUtil.getInstance().setDevices(new ArrayList<>());
+
+                            List<DeviceSettings> list = SharePreferencesUtil.getSharedPreferences(getContext()).getDevicess();
+                            int dataPosition = -1;
+                            for (int i = 0; i < list.size(); i++) {
+                                DeviceSettings item = list.get(i);
+                                if(RCSPController.getInstance().getUsingDevice().getAddress().equals(item.getClassicMac())) {
+                                    dataPosition = i;
+                                }
+                            }
+                            if(dataPosition != -1){
+                                list.remove(dataPosition);
+                                SharePreferencesUtil.getSharedPreferences(getContext()).setDevices(list);
+                            }
+
                             changeUI(false,false);
                         }
                     }
@@ -232,6 +280,7 @@ public class FragmentHome extends BaseFragment {
             }
         });
     }
+
 
     private void reConnect() {
         DeviceSettings deviceSettings =SharePreferencesUtil.getInstance().getMainBindDevice();
