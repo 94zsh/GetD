@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface AIChatGptApiService {
-    String API_KEY = "sk-proj-LPXdRwo6uvZhqzbYMTyFT3BlbkFJwbszLEjbDnqlwsXXlnhk";
+//    String API_KEY = "sk-proj-LPXdRwo6uvZhqzbYMTyFT3BlbkFJwbszLEjbDnqlwsXXlnhk";
 //    @Headers({"Content-type:application/json;charset=UTF-8"})
 //    @POST(ApiPath.AI_GET_CONTENT_PATH)
 //    Observable<MsgAiInfo> getAiMessage(@Query("access_token") String str, @Body AiBody aiBody);
@@ -68,18 +68,13 @@ public interface AIChatGptApiService {
     @POST("v1/chat/completions")
     Call<GptResponse> getAiMessage(@Body GptRequest body);
 
-    @Headers({"Content-Type:multipart/form-data","Authorization:Bearer " + API_KEY})
-    @Multipart
-    @POST("v1/audio/transcriptions")//translations/transcriptions
-    Call<TranscriptionResponse> getTranscriptions(@Part MultipartBody.Part filePart/*, @Body GptTranscriptions body*/);
-
 //    @FormUrlEncoded
 //    @Headers({"Content-Type:multipart/form-data","Authorization:Bearer " + API_KEY})
 //    @POST("v1/audio/transcriptions")//translations/transcriptions
 //    Call<GptTranscriptionsResponse> getTranscriptions(@Field("file") File file, @Field("text") String text);
 
     @Multipart
-    @Headers({/*"Content-Type:multipart/form-data",*/"Authorization:Bearer " + API_KEY})
+    @Headers({/*"Content-Type:multipart/form-data",*/"Authorization:Bearer sk-proj-LPXdRwo6uvZhqzbYMTyFT3BlbkFJwbszLEjbDnqlwsXXlnhk"})
     @POST("v1/audio/transcriptions")
     Call<TranscriptionResponse> transcribeAudio(
             @Part MultipartBody.Part file,
