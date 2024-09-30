@@ -45,7 +45,7 @@ public class ScanActivity extends BaseActivity<ActivityScanBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusColor(R.color.white);
+        setStatusColor(R.color.bg_main);
         initTitle();
     }
 

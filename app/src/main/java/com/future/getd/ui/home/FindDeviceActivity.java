@@ -18,6 +18,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.future.getd.R;
+import com.future.getd.base.BaseActivity;
 import com.future.getd.database.converter.DateConverter;
 import com.future.getd.databinding.ActivityFindDeviceBinding;
 import com.future.getd.jl.ProductManager;
@@ -40,23 +41,29 @@ import com.jieli.bluetooth.interfaces.rcsp.callback.OnRcspActionCallback;
 
 import java.util.Date;
 
-public class FindDeviceActivity extends AppCompatActivity {
-    private ActivityFindDeviceBinding binding;
+public class FindDeviceActivity extends BaseActivity<ActivityFindDeviceBinding> {
     private boolean isSearching = false;
     private DeviceSettings deviceSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        binding = ActivityFindDeviceBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setStatusColor(R.color.bg_main);
+    }
+
+    @Override
+    protected ActivityFindDeviceBinding getBinding() {
+        return ActivityFindDeviceBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    protected void initView() {
         initMap();
         init();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void init() {
@@ -114,10 +121,10 @@ public class FindDeviceActivity extends AppCompatActivity {
     private void initMap() {
         boolean isSupportGoogleService = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS;
         if(SystemLanguageUtil.isZh(this) || !isSupportGoogleService){
-            binding.webview.setVisibility(View.VISIBLE);
+            binding.mywebview.setVisibility(View.VISIBLE);
             binding.rlGoogle.setVisibility(View.GONE);
         }else{
-            binding.webview.setVisibility(View.GONE);
+            binding.mywebview.setVisibility(View.GONE);
             binding.rlGoogle.setVisibility(View.VISIBLE);
 
         }
@@ -129,7 +136,7 @@ public class FindDeviceActivity extends AppCompatActivity {
             binding.time.setText(DateConverter.fromDate(new Date(ProductManager.currentDevice.getLocationTimestamp())));
         }
         //initAmap
-        MAWebViewWrapper webViewWrapper = new MAWebViewWrapper(binding.webview);
+        MAWebViewWrapper webViewWrapper = new MAWebViewWrapper(binding.mywebview);
         AMapWrapper aMapWrapper = new AMapWrapper(this, webViewWrapper);
         aMapWrapper.onCreate();
         aMapWrapper.getMapAsyn(new AMap.OnMapReadyListener() {

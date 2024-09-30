@@ -3,25 +3,36 @@ package com.future.getd;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 
 
 import com.amap.api.location.AMapLocationClient;
+import com.future.getd.base.SysConstant;
 import com.future.getd.database.AppDataBase;
 import com.future.getd.jl.ProductManager;
 import com.future.getd.log.LogUtils;
+import com.future.getd.net.bean.account.User;
+import com.future.getd.ui.bean.DeviceSettings;
 import com.future.getd.utils.LocationUtils;
 import com.future.getd.utils.RetrofitUtil;
 import com.future.getd.utils.SdCardUtil;
 import com.future.getd.utils.SharePreferencesUtil;
+import com.future.getd.utils.SpeechUtils;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.jieli.bluetooth.bean.BluetoothOption;
 import com.jieli.bluetooth.impl.rcsp.RCSPController;
 import com.jieli.component.utils.PreferencesHelper;
 import com.jieli.component.utils.ToastUtil;
+import com.tencent.bugly.crashreport.CrashReport;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -48,11 +59,19 @@ public class MyApplication extends Application {
         // 程序创建的时候执行
         super.onCreate();
         mApplication = this;
+        if (HY_HEALTHY_VISION == RELEASE_VISION) {//如果是上架版本的话，直接不再输出log
+            LogUtils.setDEBUG(false);
+//            HyLog.setDEBUG(true);//给客户测试用 保留日志 发布版本时需要设置为false
+        }else{
+            LogUtils.setDEBUG(true);//给客户测试用 保留日志 发布版本时需要设置为false
+        }
+        SharePreferencesUtil.init(MyApplication.this);
+        initLanguage();
         initPath();
         setServerLanguage();
         initServiceChannel();
-//        CrashReport.initCrashReport(getApplicationContext(), "a7e7f4b97f",
-//                HY_HEALTHY_VISION != RELEASE_VISION);
+        CrashReport.initCrashReport(getApplicationContext(), "dafce52c78",
+                /*HY_HEALTHY_VISION != RELEASE_VISION*/false);
         initCrashExtraInfo();
         LogUtils.e("phone model:" + Build.MODEL + " , " + Build.BRAND+ " , " + Build.VERSION.SDK_INT);
         try {
@@ -62,10 +81,21 @@ public class MyApplication extends Application {
             var3.printStackTrace();
         }
         registerLifecycle(this);
-        SharePreferencesUtil.init(MyApplication.this);
         initJLSDK();
         initAMap();
         initUtils();
+    }
+
+    private void initLanguage() {
+        int lanType = SharePreferencesUtil.getInstance().getLanguage();
+        Configuration config = new Configuration();
+        if(lanType == SharePreferencesUtil.LAN_CN){
+            config.locale = Locale.CHINESE;
+        }else{
+            config.locale = Locale.ENGLISH;
+        }
+        createConfigurationContext(config);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
     private void initUtils() {
@@ -73,6 +103,7 @@ public class MyApplication extends Application {
         ToastUtil.init(MyApplication.this);
         RetrofitUtil.initHttpClient(MyApplication.this);
         AppDataBase.getInstance(MyApplication.this);
+        SpeechUtils.getInstance().initTextSpeech(this);
     }
 
     private void initAMap() {
@@ -88,6 +119,7 @@ public class MyApplication extends Application {
                     .setUseDeviceAuth(true);
             RCSPController.init(this, bluetoothOption);
         }
+        ProductManager.getInstance().setContext(MyApplication.this);
         RCSPController.getInstance().addBTRcspEventCallback(ProductManager.getInstance().getCallback());
 //        RCSPController controller = RCSPController.getInstance();
 //        controller.addBTRcspEventCallback(ProductCacheManager.getInstance());
@@ -104,29 +136,33 @@ public class MyApplication extends Application {
     }
 
     private void initCrashExtraInfo() {
-//        try {
-//            //配置Bugly上传附加信息 用户名、绑定设备、语言、地区
-//            UserInfo mUserInfo = null;
-//            mUserInfo = new UserDataOperator(this).getLoginUser();
-//            if (mUserInfo != null) {
-//                CrashReport.setUserId(mUserInfo.getUserAccount());
-//                Device device = mUserInfo.getBindDeviceByType(Device.TYPE_WATCH);
-//                if( device != null){
-//                    CrashReport.putUserData(this, "bind device", device.toString());
-//                }else{
-//                    CrashReport.putUserData(this, "bind device", "noBindDevice");
-//                }
-//            }else{
-//                CrashReport.setUserId("user");
-//            }
-//            Locale locale = getResources().getConfiguration().locale;
-//            String language = locale.getLanguage();
-//            String country = locale.getCountry();
-//            CrashReport.putUserData(this,"language",language);
-//            CrashReport.putUserData(this,"country",country);
-//        }catch (Exception e){
-//            LogUtils.e("initCrashExtraInfo Exception :" + e);
-//        }
+        try {
+            //配置Bugly上传附加信息 用户名、绑定设备、语言、地区
+
+            LogUtils.e("phone model:" + Build.MODEL + " , " + Build.BRAND+ " , " + Build.VERSION.SDK_INT);
+            CrashReport.putUserData(this, "phoneInfo", " model : " +Build.MODEL + " , BRAND: " + Build.BRAND+ " , SDK_INT:" + Build.VERSION.SDK_INT);
+
+            Locale locale = getResources().getConfiguration().locale;
+            String language = locale.getLanguage();
+            String country = locale.getCountry();
+            CrashReport.putUserData(this,"language",language);
+            CrashReport.putUserData(this,"country",country);
+
+            User user = SharePreferencesUtil.getInstance().getUser();
+            if (user != null && user.getEmail() != null && !user.getEmail().isEmpty()) {
+                CrashReport.putUserData(this,"user",user.toString());
+            }
+
+            List<DeviceSettings> deviceSettingsList = SharePreferencesUtil.getInstance().getDevicess();
+            if(deviceSettingsList != null && !deviceSettingsList.isEmpty()){
+                for (int i = 0; i < deviceSettingsList.size(); i++) {
+                    DeviceSettings settings = deviceSettingsList.get(i);
+                    CrashReport.putUserData(this,"bindDeviceInfo" + i + ": ",settings.toString());
+                }
+            }
+        }catch (Exception e){
+            LogUtils.e("initCrashExtraInfo Exception :" + e);
+        }
     }
 
 
@@ -258,6 +294,7 @@ public class MyApplication extends Application {
         }else{
             SdCardUtil.filePath = getFilesDir().getAbsolutePath();
         }
+        String audioSaveDir = SdCardUtil.getSdCardPath(SdCardUtil.SAVE_PATH_AUDIO);
     }
 }
 

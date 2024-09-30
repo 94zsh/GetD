@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewbinding.ViewBinding;
 
@@ -21,8 +25,10 @@ import com.future.getd.MainActivity;
 import com.future.getd.R;
 import com.future.getd.ui.statusbar.StatusBarCompat;
 import com.future.getd.utils.DrawUtil;
-import com.gyf.immersionbar.ImmersionBar;
+import com.future.getd.utils.SharePreferencesUtil;
 import com.jieli.bluetooth.impl.rcsp.RCSPController;
+
+import java.util.Locale;
 
 public abstract class BaseActivity<vb extends ViewBinding> extends FragmentActivity {
     public vb binding;
@@ -32,23 +38,12 @@ public abstract class BaseActivity<vb extends ViewBinding> extends FragmentActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
+        setLanguage();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        ImmersionBar.with(this).transparentBar().statusBarDarkFont(true).init();
-        //        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white));
         binding = getBinding();
         setContentView(binding.getRoot());
         initView();
         initData();
-
-        //        ImmersionBar.with(this)
-        //                .statusBarDarkFont(true,0.2f)
-        //                .navigationBarColor(R.color.f5f5f5_121212)
-        ////                .transparentStatusBar()
-        ////                .transparentNavigationBar()
-        ////                .fitsSystemWindows(true)
-        //                .init();
     }
 
     protected abstract vb getBinding();
@@ -97,11 +92,27 @@ public abstract class BaseActivity<vb extends ViewBinding> extends FragmentActiv
 
     public void setStatusColor(int color){
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(color));
+
+//        Window window = getWindow();
+//        window.setStatusBarColor(ContextCompat.getColor(this, R.color.bg_main));
+
+//        WindowInsetsController controller = getWindow().getInsetsController();
+//        if (controller != null) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                controller.setSystemBarsAppearance(
+//                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+//                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+//            }
+//        }
     }
 
 
     public void showToast(String content){
         Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showToastLong(String content){
+        Toast.makeText(this, content, Toast.LENGTH_LONG).show();
     }
 
     public void reConnect() {
@@ -149,4 +160,31 @@ public abstract class BaseActivity<vb extends ViewBinding> extends FragmentActiv
         if(!this.isFinishing() && !dialog.isShowing())
             dialog.show();
     }
+
+    public void setLanguage(){
+        int lanType = SharePreferencesUtil.getInstance().getLanguage();
+        Configuration config = new Configuration();
+        if(lanType == SharePreferencesUtil.LAN_CN){
+            config.locale = Locale.CHINESE;
+        }else{
+            config.locale = Locale.ENGLISH;
+        }
+        createConfigurationContext(config);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+    /**
+     * 检查是否拥有指定的所有权限
+     */
+    public boolean checkPermissionAllGranted(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                // 只要有一个权限没有被授予, 则直接返回 false
+                Log.e("err","权限 "+permission+"没有授权");
+                return false;
+            }
+        }
+        return true;
+    }
 }
+

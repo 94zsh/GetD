@@ -3,12 +3,14 @@ package com.future.getd.ui.bean;
 public class AudioItem {
     int type;
     String content;
-    int state;
+    boolean isPlaying;
+    String assetName;
 
-    public AudioItem(int type, String content, int state) {
+    public AudioItem(int type, String content, boolean state,String assetName) {
         this.type = type;
         this.content = content;
-        this.state = state;
+        this.isPlaying = state;
+        this.assetName = assetName;
     }
 
     public int getType() {
@@ -27,11 +29,19 @@ public class AudioItem {
         this.content = content;
     }
 
-    public int getState() {
-        return state;
+    public boolean isPlaying() {
+        return isPlaying;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
+    }
+
+    public String getAssetName() {
+        return assetName;
+    }
+
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
     }
 }

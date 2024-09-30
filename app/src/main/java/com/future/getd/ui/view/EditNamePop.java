@@ -55,13 +55,13 @@ public class EditNamePop extends Dialog {
             @Override
             public void onClick(View v) {
                 String value = etName.getText().toString();
-                LogUtils.d("set name : " + value);
+                LogUtils.d("set name : " + value + " length : " + value.getBytes().length);
                 if (TextUtils.isEmpty(value)) {
                     ToastUtil.showToastShort(R.string.tip_empty_device_name);
                 } else if (value.equals(name)) {
                     ToastUtil.showToastShort(R.string.tip_same_device_name);
                 } else if (value.getBytes().length > 20) {
-
+                    ToastUtil.showToastShort(R.string.tip_name_to_long);
                 } else {
                     if (onSelectListener != null) {
                         onSelectListener.onConfirm(value);

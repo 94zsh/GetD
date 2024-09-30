@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AudioRecordPop extends Dialog {
-    BaseRecyclerAdapter<Item> adapter;
     private Context mContext;
     private View mContentView;
     private int[] res = { R.drawable.amp1, R.drawable.amp2,
@@ -39,15 +38,6 @@ public class AudioRecordPop extends Dialog {
         mContext = context;
         init();
     }
-
-//    @Override
-//    protected int getImplLayoutId() {
-//        return R.layout.popup_select_list;
-//    }
-
-//    public SelectListPop(View contentView) {
-//        super(contentView);
-//    }
 
 
     protected void init() {
@@ -67,18 +57,6 @@ public class AudioRecordPop extends Dialog {
     }
     public void  setOnSelectListener(OnSelectListener listener) {
         this.onSelectListener = listener;
-    }
-
-    public static class Item{
-        public String name;
-        public boolean isSelect;
-        public int value;
-
-        public Item(String name, boolean isSelect,int value) {
-            this.name = name;
-            this.isSelect = isSelect;
-            this.value = value;
-        }
     }
 
     public void showStart(){

@@ -1,17 +1,21 @@
 package com.future.getd.ui.home;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +24,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.SeekBar;
 
 import com.future.getd.MainActivity;
@@ -75,6 +81,8 @@ public class FragmentHome extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        setMainStatusBar();
+
         if(MainActivity.isNeedReloadDevices){
             LogUtils.i("HOME onResume NeedReloadDevices");
             homeViewModel.getBindDevice();
@@ -133,10 +141,6 @@ public class FragmentHome extends BaseFragment {
     }
 
     private void init() {
-        ViewGroup.LayoutParams params = binding.vBar.getLayoutParams();
-        params.height = ScreenUtil.getStatusHeight(requireContext());
-        binding.vBar.setLayoutParams(params);
-        
         binding.viewToolbar.ivSettings.setOnClickListener(view -> startActivity(new Intent(getActivity(),DeviceListActivity.class)));
         binding.layoutNone.btAdd.setOnClickListener(view -> {
             startActivity(new Intent(getActivity(),ScanActivity.class));
@@ -147,10 +151,10 @@ public class FragmentHome extends BaseFragment {
                 //test
             }
         });
-
         binding.layoutDevice.llFunction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LogUtils.i("llFunction onclick state : " + RCSPController.getInstance().isDeviceConnected());
                 if (!RCSPController.getInstance().isDeviceConnected()){
                     reConnect();
                 }
@@ -284,13 +288,18 @@ public class FragmentHome extends BaseFragment {
 
     private void reConnect() {
         DeviceSettings deviceSettings =SharePreferencesUtil.getInstance().getMainBindDevice();
+        LogUtils.i("reConnect deviceSettings : " + deviceSettings.toString());
         if(deviceSettings != null){
             BluetoothDevice device = BluetoothUtil.getRemoteDevice(deviceSettings.getBleScanMessage().getEdrAddr());
             RCSPController.getInstance().connectDevice(device);
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            LogUtils.i("reconnect : " + device.getName() + " ,  " + device.getAddress());
         }
     }
 
-    private void changeUI(boolean isBind,boolean isConnect){
+    public void changeUI(boolean isBind,boolean isConnect){
         if (isBind) {
             binding.layoutNone.getRoot().setVisibility(View.GONE);
             binding.layoutDevice.getRoot().setVisibility(View.VISIBLE);
@@ -340,6 +349,14 @@ public class FragmentHome extends BaseFragment {
                     setClickable(vg.getChildAt(i), enable);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(requireContext() != null){
+            requireContext().unregisterReceiver(mVolumeReceiver);
         }
     }
 }

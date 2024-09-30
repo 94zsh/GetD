@@ -30,18 +30,25 @@ public class FragmentAI extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAiBinding.inflate(getLayoutInflater());
-
-        ViewGroup.LayoutParams params = binding.vBar.getLayoutParams();
-        params.height = ScreenUtil.getStatusHeight(requireContext());
-        binding.vBar.setLayoutParams(params);
-
         init();
         return binding.getRoot();
     }
 
     private void init() {
+        binding.viewToolbar.ivSettings.setVisibility(View.GONE);
         binding.rlChat.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), ChatActivity.class));
         });
+        binding.rlTranslate.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), TranslateActivity.class));
+        });
+        binding.rlText.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), VoiceToTextActivity.class));
+        });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        setMainStatusBar();
     }
 }

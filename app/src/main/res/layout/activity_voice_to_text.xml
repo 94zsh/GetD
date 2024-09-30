@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    tools:context=".ui.ai.VoiceToTextActivity">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_title_vtt" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/text_text333_sp16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:text="" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_90"
+            android:background="@drawable/bg_no_text"
+            android:visibility="visible"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+        <LinearLayout
+            android:id="@+id/ll_speech"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/padding"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginEnd="@dimen/padding"
+            android:background="@drawable/bg_white_radius_10dp"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="145dp"
+                android:layout_height="23dp"
+                android:text="@string/real_time_translate"
+                android:textStyle="bold"
+                android:textColor="@color/text2d2"
+                android:textSize="16sp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dp_16"
+                android:background="@color/bg_main"/>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text=""
+                style="@style/text_text2d2_sp16"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+<!--    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />-->
+
+    <ImageView
+        android:id="@+id/speech"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:layout_above="@id/tip"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_record" />
+
+    <TextView
+        android:id="@+id/tip"
+        style="@style/text_text999_sp16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:text="@string/speech_tip" />
+
+</LinearLayout>

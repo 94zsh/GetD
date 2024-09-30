@@ -3,16 +3,18 @@ package com.future.getd.ui.bean;
 import com.jieli.bluetooth.bean.device.eq.EqInfo;
 
 public class EqItem {
-    public static final int MODE_CUSTOM = 0;
-    public static final int MODE_POP = 1;
-    public static final int MODE_DANCE = 2;
-    public static final int MODE_BLUE = 3;
+    public static final int MODE_NATURAL = 0;
+    public static final int MODE_ROCK = 1;
+    public static final int MODE_POP = 2;
+    public static final int MODE_CLASS = 3;
     public static final int MODE_JAZZ = 4;
     public static final int MODE_VILLAGE = 5;
-    public static final int MODE_ROLL = 6;
-    public static final int MODE_ELECTRONIC = 7;
-    public static final int MODE_CLASS = 8;
+    public static final int MODE_CUSTOM = 6;
+    public static final int MODE_DANCE = 7;
+    public static final int MODE_BLUE = 8;
+    public static final int MODE_ELECTRONIC = 9;
     //设备模式 自然 摇滚 流行 经典 爵士 乡村 自定义
+    public static final int DEV_MODE_NATURAL = 0;
     public static final int DEV_MODE_ROCK = 1;
     public static final int DEV_MODE_POP = 2;
     public static final int DEV_MODE_CLASS = 3;

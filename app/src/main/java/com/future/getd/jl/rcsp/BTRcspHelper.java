@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 
 import com.future.getd.MyApplication;
+import com.future.getd.base.SysConstant;
 import com.future.getd.log.LogUtils;
 import com.future.getd.utils.PermissionUtil;
 import com.future.getd.utils.UIHelper;
@@ -123,7 +124,7 @@ public class BTRcspHelper {
                             public void onBrEdrConnection(BluetoothDevice device, int status) {
                                 LogUtils.e("onBrEdrConnection status : " + status);
                                 if (BluetoothUtil.deviceEquals(bluetoothDevice, device)) {
-                                    postConnectionChange(device, convertConnectionState(status));
+                                    postConnectionChange(context,device, convertConnectionState(status));
                                     if (status != BluetoothProfile.STATE_CONNECTING) {
                                         bluetoothDevice = null;
                                         controller.getBtOperation().unregisterBluetoothCallback(this);
@@ -136,13 +137,13 @@ public class BTRcspHelper {
                                 }
                             }
                         };
-                        postConnectionChange(device, StateCode.CONNECTION_CONNECTING);
+                        postConnectionChange(context,device, StateCode.CONNECTION_CONNECTING);
                         controller.getBtOperation().registerBluetoothCallback(bluetoothCallback);
                         bluetoothDevice = edrDevice;
                         if (controller.getBtOperation().startConnectByBreProfiles(edrDevice) != 0) {
                             bluetoothDevice = null;
                             controller.getBtOperation().unregisterBluetoothCallback(bluetoothCallback);
-                            postConnectionChange(device, StateCode.CONNECTION_DISCONNECT);
+                            postConnectionChange(context,device, StateCode.CONNECTION_DISCONNECT);
                         }
                     }
                     return;
@@ -259,6 +260,10 @@ public class BTRcspHelper {
         }
     }
 
-    private static void postConnectionChange(BluetoothDevice device, int state){
+    private static void postConnectionChange(Context context ,BluetoothDevice device, int state){
+        LogUtils.i("postConnectionChange state : " + state);
+        Intent intent = new Intent(SysConstant.BROADCAST_SPP_CONNECTION_STATE);
+        intent.putExtra(SysConstant.BROADCAST_SPP_CONNECTION_STATE_KEY, state);
+        context.sendBroadcast(intent);
     }
 }

@@ -6,8 +6,11 @@ import android.content.SharedPreferences.Editor;
 
 import com.alibaba.fastjson.JSON;
 import com.future.getd.log.LogUtils;
+import com.future.getd.net.bean.account.User;
 import com.future.getd.ui.bean.DeviceSettings;
 import com.future.getd.ui.bean.EqData;
+import com.future.getd.ui.bean.StepData;
+import com.future.getd.ui.bean.VoiceToTextBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -238,5 +241,180 @@ public class SharePreferencesUtil {
             e.printStackTrace();
         }
         return list;
+    }
+
+
+    //存储语音转录历史
+    private static final String VOICE_TO_TEXT = "VOICE_TO_TEXT_";
+    public Boolean saveVTT(List<VoiceToTextBean> list) {
+        boolean result = false;
+        try {
+            if (sp != null && list != null) {
+                Editor editor = sp.edit();
+                String str = JSON.toJSONString(list);
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e("存储语音转录历史 " + i + " "  + list.get(i).toString());//存储设备数据  [{"bleMac":"","classicMac":"1C:52:16:FA:FA:71","name":"NULL"}]
+                }
+                editor.putString(VOICE_TO_TEXT, str);
+                result = editor.commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<VoiceToTextBean> getVtt() {
+        List<VoiceToTextBean> list = new ArrayList<>();
+        try {
+            if (sp != null) {
+                String str = sp.getString(VOICE_TO_TEXT, null);
+                if (str != null) {
+//                list = JSON.parseObject(str, List<DeviceSettings>);
+                    list = JSON.parseArray(str,VoiceToTextBean.class);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean deleteAllVtt() {
+        List<VoiceToTextBean> list = new ArrayList<>();
+        boolean result = false;
+        try {
+            if (sp != null && list != null) {
+                Editor editor = sp.edit();
+                String str = JSON.toJSONString(list);
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e("存储语音转录历史 " + i + " "  + list.get(i).toString());//存储设备数据  [{"bleMac":"","classicMac":"1C:52:16:FA:FA:71","name":"NULL"}]
+                }
+                editor.putString(VOICE_TO_TEXT, str);
+                result = editor.commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    public Boolean updateVttByTime(long time,String newContent) {
+        List<VoiceToTextBean> list = getVtt();
+        for (int i = 0; i < list.size(); i++) {
+            VoiceToTextBean voiceToTextBean = list.get(i);
+            if(voiceToTextBean.getTime() == time){
+                voiceToTextBean.setContent(newContent);
+            }
+        }
+
+        boolean result = false;
+        try {
+            if (sp != null && list != null) {
+                Editor editor = sp.edit();
+                String str = JSON.toJSONString(list);
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e("存储语音转录历史 " + i + " "  + list.get(i).toString());//存储设备数据  [{"bleMac":"","classicMac":"1C:52:16:FA:FA:71","name":"NULL"}]
+                }
+                editor.putString(VOICE_TO_TEXT, str);
+                result = editor.commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static final String LANGUAGE_ = "LANGUAGE_";
+
+    /**
+     * @param lanType 语言类型
+     * @return
+     */
+    public static final int LAN_EN = 0;
+    public static final int LAN_CN = 1;
+    public Boolean saveLanguage(int lanType) {
+        boolean result = false;
+        if (sp != null) {
+            Editor editor = sp.edit();
+            editor.putInt(LANGUAGE_, lanType);
+            result = editor.commit();
+        }
+        return result;
+    }
+
+    public int getLanguage() {
+        int result = LAN_EN;
+        if (sp != null) {
+            result = sp.getInt(LANGUAGE_,LAN_EN);
+        }
+        return result;
+    }
+
+
+    private static final String STEP_DATA = "STEP_DATA_";
+    public Boolean saveGoogleStepData(StepData stepData) {
+        boolean result = false;
+        try {
+            if (sp != null && stepData != null) {
+                Editor editor = sp.edit();
+                String str = JSON.toJSONString(stepData);
+                editor.putString(STEP_DATA, str);
+                result = editor.commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public StepData getGoogleStepData() {
+        StepData stepData = new StepData();
+        try {
+            if (sp != null) {
+                String str = sp.getString(STEP_DATA, null);
+                if (str != null) {
+//                list = JSON.parseObject(str, List<DeviceSettings>);
+                    stepData = JSON.parseObject(str,StepData.class);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return stepData;
+    }
+
+
+    private static final String USER_DATA = "USER_DATA_";
+    public Boolean saveUser(User user) {
+        boolean result = false;
+        try {
+            if (sp != null && user != null) {
+                Editor editor = sp.edit();
+                String str = JSON.toJSONString(user);
+                editor.putString(USER_DATA, str);
+                result = editor.commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public User getUser() {
+        User user = new User();
+        try {
+            if (sp != null) {
+                String str = sp.getString(USER_DATA, null);
+                if (str != null) {
+//                list = JSON.parseObject(str, List<DeviceSettings>);
+                    user = JSON.parseObject(str,User.class);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
     }
 }

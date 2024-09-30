@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:layout_marginTop="@dimen/dp_18"
-            android:background="@drawable/bg_scan_item_radius_10dp">
+            android:background="@drawable/bg_main_item_radius_10dp">
             <EditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"

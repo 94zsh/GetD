@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -14,18 +18,27 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /><!--录音权限-->
-    <uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" /> <!-- 活动权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"
-        tools:ignore="ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
 
     <application
         android:name=".MyApplication"
@@ -34,24 +47,50 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GetD"
         tools:targetApi="31">
         <activity
+            android:name=".ui.my.TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.FeedBackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.WebActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.VersionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my.LanguageSetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ai.VttDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ai.VoiceToTextActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.ai.TranslateActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ai.ChatActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ui.home.GestureActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.EqSettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
 
         <meta-data
@@ -59,7 +98,7 @@
             android:value="de93026500df70769600310ddc9a0793" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBE4iF1TFJvh7ZbV6jvay0cX_CAA-Pwyos" />
+            android:value="AIzaSyA_b5-hUUlK-B4cBQzk18BdPvOi6mXBeLQ" />
 
         <activity
             android:name=".ui.home.FindDeviceActivity"
@@ -82,6 +121,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

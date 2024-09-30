@@ -10,9 +10,8 @@ public class Message {
   public static final String ROLE_ASSISTANT = "assistant";
   public String account;
   public String id;
-
+  public long createTime;
   public String role;
-
   public String content;
   /**
    * stop结束,其他未结束,
@@ -31,6 +30,7 @@ public class Message {
   public Message(String role, String content) {
     this.role = role;
     this.content = content;
+    createTime = System.currentTimeMillis();
   }
 
   public String getId() {
@@ -89,6 +89,14 @@ public class Message {
     this.account = account;
   }
 
+  public long getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(long createTime) {
+    this.createTime = createTime;
+  }
+
   @Override
   public String toString() {
     return "Message{" +
@@ -98,6 +106,7 @@ public class Message {
             ", type='" + type + '\'' +
             ", messageType='" + messageType + '\'' +
             ", index=" + index +
+            ", createTime=" + createTime +
             '}';
   }
 }

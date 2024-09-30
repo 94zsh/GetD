@@ -1,7 +1,12 @@
 package com.future.getd.jl;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+import android.content.Intent;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.future.getd.base.SysConstant;
 import com.future.getd.jl.rcsp.BTRcspHelper;
 import com.future.getd.log.LogUtils;
 import com.future.getd.ui.bean.DeviceSettings;
@@ -12,6 +17,7 @@ import com.jieli.bluetooth.bean.base.BaseError;
 import com.jieli.bluetooth.bean.base.CommandBase;
 import com.jieli.bluetooth.bean.base.VoiceMode;
 import com.jieli.bluetooth.bean.command.GetSysInfoCmd;
+import com.jieli.bluetooth.bean.command.custom.CustomCmd;
 import com.jieli.bluetooth.bean.device.DevBroadcastMsg;
 import com.jieli.bluetooth.bean.device.alarm.AlarmBean;
 import com.jieli.bluetooth.bean.device.alarm.AlarmListInfo;
@@ -35,6 +41,7 @@ import com.jieli.bluetooth.bean.device.status.BatteryInfo;
 import com.jieli.bluetooth.bean.device.status.DevStorageInfo;
 import com.jieli.bluetooth.bean.device.voice.VoiceFunc;
 import com.jieli.bluetooth.bean.device.voice.VolumeInfo;
+import com.jieli.bluetooth.bean.parameter.CustomParam;
 import com.jieli.bluetooth.bean.parameter.SearchDevParam;
 import com.jieli.bluetooth.bean.response.ADVInfoResponse;
 import com.jieli.bluetooth.bean.response.SysInfoResponse;
@@ -51,6 +58,7 @@ import java.util.List;
 
 public class ProductManager {
     private static ProductManager instance;
+    private Context context;
     private GetDRcspCallback callback;
     private final List<String> blockList = new ArrayList<>();
     public static DeviceSettings currentDevice;
@@ -59,6 +67,10 @@ public class ProductManager {
             instance = new ProductManager();
         }
         return instance;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public GetDRcspCallback getCallback(){
@@ -84,7 +96,7 @@ public class ProductManager {
         @Override
         public void onEqChange(BluetoothDevice device, EqInfo eqInfo) {
             super.onEqChange(device, eqInfo);
-            LogUtils.i("BTRcspEventCallback onVolumeChange device : " + device + " , eqInfo : " + eqInfo);
+//            LogUtils.i("BTRcspEventCallback onVolumeChange device : " + device + " , eqInfo : " + eqInfo);
         }
 
         @Override
@@ -375,6 +387,31 @@ public class ProductManager {
             // isRightCharging=false, chargingBinQuantity=0, isDeviceCharging=false} BaseParameter{xmOpCode=0, paramData=null}, response=null}
 
             LogUtils.i("BTRcspEventCallback onDeviceCommand device : " + device + " , cmd : " + cmd);
+            //语音互发
+            //onDeviceCommand: BTRcspEventCallback onDeviceCommand device : 88:86:A7:8F:03:D3 , cmd : CommandBase{OpCodeSn=11, opCode=255, name='CustomCmd', type=2, status=0, param=CustomParam{data=0301}, response=null}
+            //onDeviceCommand: BTRcspEventCallback onDeviceCommand device : 88:86:A7:8F:03:D3 , cmd : CommandBase{OpCodeSn=12, opCode=255, name='CustomCmd', type=2, status=0, param=CustomParam{data=0300}, response=null}
+            if(cmd.getId() == Command.CMD_EXTRA_CUSTOM){
+                CustomCmd customCmd = (CustomCmd) cmd;
+                CustomParam param = customCmd.getParam();
+                boolean isNeedResponse = cmd.getType() == CommandBase.FLAG_HAVE_PARAMETER_AND_RESPONSE || cmd.getType() == CommandBase.FLAG_NO_PARAMETER_AND_RESPONSE;
+                byte[] data = param.getData(); //自定义数据
+                if(data != null && data.length == 2){
+                    if(data[0] == 0x03){
+                        if (data[1] == 0x01) {
+                            context.sendBroadcast(new Intent(SysConstant.BROADCAST_VOICE_INTERACTION_BEGIN));
+                        } else if (data[1] == 0x00) {
+                            context.sendBroadcast(new Intent(SysConstant.BROADCAST_VOICE_INTERACTION_END));
+                        }
+                    }
+                }
+//                //parseCustomData(data);
+//                if(isNeedResponse){ //需要回复
+//                    byte[] responseData = new byte[0]; //可以设置回复的数据
+//                    customCmd.setParam(new CustomParam(responseData));
+//                    customCmd.setStatus(StateCode.STATUS_SUCCESS);
+//                    controller.sendRcspResponse(device, customCmd); //发送命令回复
+//                }
+            }
             if (cmd.getId() == Command.CMD_ADV_DEVICE_NOTIFY) {
                 if (blockList.contains(device.getAddress())) {
                     return;

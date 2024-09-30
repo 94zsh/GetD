@@ -25,9 +25,11 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
     private DeviceSettings deviceSettings;
     private List<ADVInfoResponse.KeySettings> keySettings = new ArrayList<>();
     BTRcspEventCallback callback;
+    boolean isSupportSet = false;//是否支持设置 设置会覆盖现有功能 现在单击是语音互发,修改会导致功能冲突 后续会改成指导页面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusColor(R.color.bg_main);
     }
 
     @Override
@@ -105,6 +107,10 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
         };
         //左耳机单击
         binding.ctlLeft.setOnClickListener(v -> {
+            if(!isSupportSet){
+                showToast(getString(R.string.not_support));
+                return;
+            }
             SelectListPop selectListPopup = new SelectListPop(GestureActivity.this,getString(R.string.single_click),
                     getListByMap(ButtonFunction.DEVICE_KEY_NUM_LEFT,ButtonFunction.DEVICE_KEY_ACTION_SINGLE_TAP,
                             searchFunction(keySettings,ButtonFunction.DEVICE_KEY_NUM_LEFT,ButtonFunction.DEVICE_KEY_ACTION_SINGLE_TAP)));
@@ -121,6 +127,10 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
         });
         //右耳机单击
         binding.ctlRight.setOnClickListener(v -> {
+            if(!isSupportSet){
+                showToast(getString(R.string.not_support));
+                return;
+            }
             SelectListPop selectListPopup = new SelectListPop(GestureActivity.this,getString(R.string.single_click),
                     getListByMap(ButtonFunction.DEVICE_KEY_NUM_RIGHT,ButtonFunction.DEVICE_KEY_ACTION_SINGLE_TAP,
                             searchFunction(keySettings,ButtonFunction.DEVICE_KEY_NUM_LEFT,ButtonFunction.DEVICE_KEY_ACTION_SINGLE_TAP)));
@@ -137,6 +147,10 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
         });
         //左耳机双击
         binding.ctlDoubleLeft.setOnClickListener(v -> {
+            if(!isSupportSet){
+                showToast(getString(R.string.not_support));
+                return;
+            }
             SelectListPop selectListPopup = new SelectListPop(GestureActivity.this,getString(R.string.double_click),
                     getListByMap(ButtonFunction.DEVICE_KEY_NUM_LEFT,ButtonFunction.DEVICE_KEY_ACTION_DOUBLE_TAP,
                             searchFunction(keySettings,ButtonFunction.DEVICE_KEY_NUM_LEFT,ButtonFunction.DEVICE_KEY_ACTION_DOUBLE_TAP)));
@@ -151,9 +165,12 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
             });
             selectListPopup.show(binding.main);
         });
-
         //左耳机双击
         binding.ctlDoubleRight.setOnClickListener(v -> {
+            if(!isSupportSet){
+                showToast(getString(R.string.not_support));
+                return;
+            }
             SelectListPop selectListPopup = new SelectListPop(GestureActivity.this,getString(R.string.double_click),
                     getListByMap(ButtonFunction.DEVICE_KEY_NUM_RIGHT,ButtonFunction.DEVICE_KEY_ACTION_DOUBLE_TAP,
                             searchFunction(keySettings,ButtonFunction.DEVICE_KEY_NUM_RIGHT,ButtonFunction.DEVICE_KEY_ACTION_DOUBLE_TAP)));
@@ -251,6 +268,10 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
         return keySettings;
     }
 
+    // keyNum=1, action=1, function=5},
+    // KeySettings{, keyNum=2, action=1, function=5},
+    // KeySettings{, keyNum=1, action=2, function=8},
+    // KeySettings{, keyNum=2, action=2, function=8
     private void updateKeySettingsUI(List<ADVInfoResponse.KeySettings> keySettings) {
         if(keySettings == null || keySettings.isEmpty()){
             return;
@@ -307,6 +328,8 @@ public class GestureActivity extends BaseActivity<ActivityGestureBinding> {
             functionStr = getString(R.string.fun_answer);
         }else if (function == ButtonFunction.DEVICE_KEY_FUNCTION_HANG_UP){
             functionStr = getString(R.string.fun_hand_up);
+        }else if (function == ButtonFunction.DEVICE_KEY_FUNCTION_CALL_BACK){
+            functionStr = getString(R.string.fun_callback);
         }else if (function == ButtonFunction.DEVICE_KEY_FUNCTION_VOLUME_UP){
             functionStr = getString(R.string.fun_volume_up);
         }else if (function == ButtonFunction.DEVICE_KEY_FUNCTION_VOLUME_DOWN){

@@ -2,12 +2,22 @@ package com.future.getd.ui.home;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothProfile;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.service.restrictions.RestrictionsReceiver;
 import android.view.View;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
 import com.future.getd.R;
 import com.future.getd.base.BaseActivity;
+import com.future.getd.base.SysConstant;
 import com.future.getd.databinding.ActivityConnectingBinding;
 import com.future.getd.jl.rcsp.BTRcspHelper;
 import com.future.getd.log.LogUtils;
@@ -24,6 +34,7 @@ public class ConnectingActivity extends BaseActivity<ActivityConnectingBinding> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusColor(R.color.bg_main);
     }
 
     @Override
@@ -119,7 +130,24 @@ public class ConnectingActivity extends BaseActivity<ActivityConnectingBinding> 
         };
         rcspController.addBTRcspEventCallback(btConnectRcspEventCallback);
         startConnect();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SysConstant.BROADCAST_SPP_CONNECTION_STATE);
+        registerReceiver(receiver, filter);
     }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(SysConstant.BROADCAST_SPP_CONNECTION_STATE)){
+                int state = intent.getIntExtra(SysConstant.BROADCAST_SPP_CONNECTION_STATE_KEY, BluetoothProfile.STATE_DISCONNECTED);
+                LogUtils.e("BROADCAST_SPP_DISCONNECT : " + state);
+                if(state == BluetoothProfile.STATE_DISCONNECTED){
+                    finish();
+                }
+            }
+        }
+    };
 
     private void startConnect() {
 //        connectDevice();
@@ -145,5 +173,6 @@ public class ConnectingActivity extends BaseActivity<ActivityConnectingBinding> 
     protected void onDestroy() {
         super.onDestroy();
         rcspController.removeBTRcspEventCallback(btConnectRcspEventCallback);
+        unregisterReceiver(receiver);
     }
 }

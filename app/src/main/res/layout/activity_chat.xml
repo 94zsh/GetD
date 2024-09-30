@@ -21,8 +21,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ETContainer"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/bg_main"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_main_item_radius_10dp"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -36,16 +39,15 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="10dp"
             android:gravity="center_vertical"
-            android:visibility="gone">
+            android:visibility="visible">
             <TextView
                 android:id="@+id/tv_record"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="40dp"
+                android:layout_height="46dp"
                 android:gravity="center"
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_15"
-                android:background="@drawable/bg_white_radius_5dp"
                 android:text="@string/press_to_record"
                 android:textColor="@color/text2d2"
                 android:textSize="@dimen/sp_16"/>
@@ -63,37 +65,42 @@
         <LinearLayout
             android:id="@+id/ll_input_text"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone">
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:hint="@string/input_content"
+                android:text=""
+                android:background="@null"
+                android:maxLines="3"
+                android:minLines="1"
+                android:padding="7dp"
+                android:textColor="@color/text333"
+                android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/iv_switch_audio"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="@dimen/dp_10"
                 android:src="@drawable/ic_record"/>
-            <EditText
-                android:id="@+id/et_input"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_white_radius_5dp"
-                android:padding="7dp"
-                android:textColor="@color/text333"
-                android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/send"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/sendbtn"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/dp_7"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:src="@drawable/send_msg"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

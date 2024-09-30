@@ -1,6 +1,7 @@
 package com.future.getd.base;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ public class BaseFragment extends Fragment {
     public void showToast(String content){
         Toast.makeText(getActivity(), content, Toast.LENGTH_SHORT).show();
     }
-
 
     public void showCommonPop(String title, String content, String confirmText, View.OnClickListener listener){
         //set content
@@ -61,5 +61,19 @@ public class BaseFragment extends Fragment {
         dialogWindow.setAttributes(lp);
         if(!requireActivity().isFinishing() && !dialog.isShowing())
             dialog.show();
+    }
+
+    public void setMainStatusBar(){
+        Window window = getActivity().getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.setStatusBarColor(getResources().getColor(R.color.bg_main));
+    }
+    public void setMyStatusBar(){
+        Window window = getActivity().getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.setStatusBarColor(Color.TRANSPARENT);
     }
 }

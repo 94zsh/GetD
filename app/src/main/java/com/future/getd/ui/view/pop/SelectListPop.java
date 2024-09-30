@@ -34,6 +34,7 @@ public class SelectListPop extends Dialog {
     BaseRecyclerAdapter<Item> adapter;
     private Context mContext;
     private View mContentView;
+    private boolean isHideIcon = false;
     public SelectListPop(@NonNull Context context,String title,List<Item> data) {
         super(context);
         mContext = context;
@@ -41,15 +42,6 @@ public class SelectListPop extends Dialog {
         this.data = data;
         init();
     }
-
-//    @Override
-//    protected int getImplLayoutId() {
-//        return R.layout.popup_select_list;
-//    }
-
-//    public SelectListPop(View contentView) {
-//        super(contentView);
-//    }
 
     protected void init() {
 //        setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -68,6 +60,7 @@ public class SelectListPop extends Dialog {
                 TextView tv_item = holder.getView(R.id.tv_item);
                 tv_item.setText(item.name);
                 ivType.setImageResource(getIcByType(data.get(position).value));
+                ivType.setVisibility(isHideIcon ? View.GONE : View.VISIBLE);
                 if(item.isSelect){
                     iv_state.setImageResource(R.drawable.pic_check_checked);
 //                    tv_item.setTextColor(getResources().getColor(R.color.blue));
@@ -126,7 +119,9 @@ public class SelectListPop extends Dialog {
     public void  setOnSelectListener(OnSelectListener listener) {
         this.onSelectListener = listener;
     }
-
+    public void setHideIcon(boolean hideIcon) {
+        isHideIcon = hideIcon;
+    }
     public void setData(String title,List<Item> data){
         this.data = data;
         this.title = title;
@@ -195,4 +190,5 @@ public class SelectListPop extends Dialog {
         }
         return icon;
     }
+
 }

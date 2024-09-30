@@ -39,6 +39,7 @@ public class DeviceListActivity extends BaseActivity<ActivityDeviceListBinding> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusColor(R.color.bg_main);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class DeviceListActivity extends BaseActivity<ActivityDeviceListBinding> 
                         if(rcspController.isDeviceConnected()){
                             if(rcspController.getUsingDevice().getAddress().equals(deviceSettingsList.get(i).getClassicMac())){
                                 LogUtils.i("disconnect " + rcspController.getUsingDevice().getAddress());
-                                rcspController.disconnectDevice(rcspController.getUsingDevice());
+//                                rcspController.disconnectDevice(rcspController.getUsingDevice());
                                 JL_BluetoothManager.getInstance(DeviceListActivity.this).unPair(RCSPController.getInstance().getUsingDevice());
                             }
                         }

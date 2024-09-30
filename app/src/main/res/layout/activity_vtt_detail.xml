@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/bg_main"
+    tools:context=".ui.ai.VoiceToTextActivity">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:orientation="horizontal"
+       android:paddingRight="20dp">
+       <ImageView
+           android:id="@+id/iv_back"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:layout_centerVertical="true"
+           android:paddingLeft="20dp"
+           android:paddingRight="30dp"
+           android:src="@drawable/ic_back"/>
+       <TextView
+           android:id="@+id/tv_title"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+           android:text=""
+           android:textColor="@color/text2d2"
+           android:textSize="@dimen/sp_16" />
+       <ImageView
+           android:id="@+id/edit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           android:paddingStart="@dimen/dp_7"
+           android:paddingEnd="@dimen/dp_7"
+           android:paddingTop="@dimen/dp_2"
+           android:paddingBottom="@dimen/dp_2"
+           android:text="@string/complete"
+           android:textColor="@color/white"
+           android:textSize="13sp"
+           android:background="@drawable/ic_edit_name"
+           android:visibility="visible"/>
+       <TextView
+           android:id="@+id/complete"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           android:paddingStart="@dimen/dp_7"
+           android:paddingEnd="@dimen/dp_7"
+           android:paddingTop="@dimen/dp_2"
+           android:paddingBottom="@dimen/dp_2"
+           android:text="@string/complete"
+           android:textColor="@color/white"
+           android:textSize="13sp"
+           android:background="@drawable/bg_green_radius_3dp"
+           android:visibility="gone"/>
+   </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/text_text333_sp16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:text="" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:id="@+id/ll_speech"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/padding"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginEnd="@dimen/padding"
+            android:background="@drawable/bg_white_radius_10dp"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:enabled="false"
+                android:background="@null"
+                style="@style/text_text2d2_sp16"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:background="@drawable/ic_play" />
+
+</LinearLayout>

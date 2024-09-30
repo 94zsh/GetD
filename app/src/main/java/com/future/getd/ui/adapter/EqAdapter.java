@@ -42,7 +42,7 @@ public class EqAdapter extends BaseQuickAdapter<EqItem, QuickViewHolder> {
         int src = R.drawable.eq_custom;
         switch (type){
             case EqItem.MODE_CUSTOM:
-                src = R.drawable.eq_custom;
+                src = R.drawable.eq_blue;
                 break;
             case EqItem.MODE_POP:
                 src = R.drawable.eq_pop;
@@ -59,7 +59,7 @@ public class EqAdapter extends BaseQuickAdapter<EqItem, QuickViewHolder> {
             case EqItem.MODE_VILLAGE:
                 src = R.drawable.eq_village;
                 break;
-            case EqItem.MODE_ROLL:
+            case EqItem.MODE_ROCK:
                 src = R.drawable.eq_roll;
                 break;
             case EqItem.MODE_ELECTRONIC:

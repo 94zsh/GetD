@@ -50,14 +50,19 @@ public class RetrofitUtil {
     public static void initHttpClient(Context context) {
         OkHttpClient.Builder retryOnConnectionFailure = new OkHttpClient.Builder().retryOnConnectionFailure(false);
         TimeUnit timeUnit = TimeUnit.MILLISECONDS;
-        OkHttpClient build = retryOnConnectionFailure.connectTimeout(30000L, timeUnit).readTimeout(30000L, timeUnit).addInterceptor(new NetInterceptor(context, true, true)).hostnameVerifier(new HostnameVerifier() { // from class: cd6
+        OkHttpClient build = retryOnConnectionFailure
+                .connectTimeout(10000L, timeUnit)
+                .readTimeout(10000L, timeUnit)
+                .addInterceptor(new NetInterceptor(context, true, true))
+                .hostnameVerifier(new HostnameVerifier() { // from class: cd6
             @Override // javax.net.ssl.HostnameVerifier
             public final boolean verify(String str, SSLSession sSLSession) {
                 boolean lambda$initHttpClient$0;
                 lambda$initHttpClient$0 = RetrofitUtil.lambda$initHttpClient$0(str, sSLSession);
                 return lambda$initHttpClient$0;
             }
-        }).build();
+        })
+                .build();
         build.dispatcher().setMaxRequests(128);
         build.dispatcher().setMaxRequestsPerHost(10);
         initRetrofit(build);
@@ -70,7 +75,7 @@ public class RetrofitUtil {
                     sRetrofit = new Retrofit.Builder()
                             .client(okHttpClient)
 //                            .baseUrl(Api.BASE_API)
-                            .baseUrl(Api.AI_BASE_API_TEST)
+                            .baseUrl(Api.AI_BASE_API)
                             .addConverterFactory(StringConverterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
 //                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -83,7 +88,7 @@ public class RetrofitUtil {
                 if (sAiRetrofit == null) {
                     sAiRetrofit = new Retrofit.Builder()
                             .client(okHttpClient)
-                            .baseUrl(Api.AI_BASE_API)
+                            .baseUrl(Api.AI_BASE_API_OPENAI)
                             .addConverterFactory(StringConverterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
 //                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
